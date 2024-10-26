@@ -1,23 +1,43 @@
 from collections import deque
-import sys
-input=sys.stdin.readline
-N,M=map(int,input().split())
 
-graph=[list(map(int,' '.join(input().split()))) for _ in range(N)]
-queue=deque([(0,0)])
+# n, m 입력받기
+n, m = map(int, input().split())
 
-#미로 문제 풀때 이동
-dx=[0,0,1,-1]
-dy=[1,-1,0,0]
-cnt=0
+# 미로 정보 입력받기
+graph = []
+for _ in range(n):
+    graph.append(list(map(int, input().strip())))
 
-while queue:
-    x,y=queue.popleft()
-    for i in range(4):
-        next_x,next_y=x+dx[i],y+dy[i]
-        if 0<=next_x<N and 0<=next_y<M:
-            if graph[next_x][next_y]==1:
-                queue.append((next_x,next_y))
-                graph[next_x][next_y]=graph[x][y]+1
+# 이동 방향 설정 (상, 하, 좌, 우)
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
 
-print(graph[N-1][M-1])
+def bfs(x, y):
+    queue = deque()
+    queue.append((x, y))
+
+    while queue:
+        x, y = queue.popleft()
+
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+
+            # 미로 범위를 벗어나면 무시
+            if nx < 0 or nx >= n or ny < 0 or ny >= m:
+                continue
+            
+            # 벽이면 무시
+            if graph[nx][ny] == 0:
+                continue
+
+            # 처음 방문하는 경우에만 거리 업데이트
+            if graph[nx][ny] == 1:
+                graph[nx][ny] = graph[x][y] + 1
+                queue.append((nx, ny))
+
+    # 목표 지점의 최단 거리 반환
+    return graph[n - 1][m - 1]
+
+# bfs 시작
+print(bfs(0, 0))
