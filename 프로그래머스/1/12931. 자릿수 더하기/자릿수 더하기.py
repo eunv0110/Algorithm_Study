@@ -1,8 +1,10 @@
 def solution(n):
-    sum = 0
+    answer=[]
+    
     while n>0:
         remainder=n%10
-        sum+=remainder
         n=n//10
-        
-    return sum
+        answer.append(remainder)
+
+    return sum(answer)
+                
