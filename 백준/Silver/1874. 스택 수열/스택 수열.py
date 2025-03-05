@@ -1,8 +1,9 @@
+import sys
 #수열의 길이 입력받음
-n=int(input())
+n=int(sys.stdin.readline().strip())
 stack=[]
 for _ in range(n):
-  num=int(input())
+  num=int(sys.stdin.readline().strip())
   stack.append(num)
 #+,- 저장
 answer=[]
