@@ -1,11 +1,15 @@
 def solution(s):
-    answer = []
-    for char in s:
-        if char=='(':
-            answer.append(char)
-        else:
-            if not answer:
+    answer=[]
+    
+    for i in s:
+        if i =='(':
+            answer.append(i)
+        elif i==')':
+            if answer:
+                answer.pop()
+            else:
                 return False
-            answer.pop()
-
-    return not answer
+    if answer:
+        return False
+    else:
+        return True
