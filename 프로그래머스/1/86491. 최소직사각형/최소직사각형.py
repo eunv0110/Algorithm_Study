@@ -1,12 +1,12 @@
 def solution(sizes):
-    w_list=[]
-    h_list=[]
+    answer1=[]
+    answer2=[]
     for size in sizes:
-        size.sort(reverse=True)
-    for i in range(len(sizes)):
-        w_list.append(sizes[i][0])
-        h_list.append(sizes[i][1])
-    
-    width=max(w_list)*max(h_list)
-    return width
-    
+        if size[0]<size[1]:
+            size[0],size[1]=size[1],size[0]
+        answer1.append(size[0])
+        answer2.append(size[1])
+        answer1.sort()
+        answer2.sort()
+        
+    return answer1[-1]*answer2[-1]
