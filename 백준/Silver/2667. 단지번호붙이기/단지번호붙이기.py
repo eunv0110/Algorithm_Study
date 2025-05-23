@@ -1,39 +1,37 @@
-N = int(input())
-graph = []
-result = []
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+n=int(input())
 
-# 단지 정보 입력 받기
-for _ in range(N):
-    graph.append(list(map(int, input().strip())))
+graph=[]
 
-# dfs 함수 정의
-def dfs(x, y):
-    global count
-    graph[x][y] = 0  # 현재 집 방문 처리
-    count += 1  # 현재 위치의 집 개수 증가
+for _ in range(n):
+    info=list(map(int,input().strip()))
+    graph.append(info)
 
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
+#방향 선언
+dx=[-1,1,0,0]
+dy=[0,0,-1,1]
 
-        # 범위를 벗어나거나 집이 없는 경우 무시
-        if nx < 0 or nx >= N or ny < 0 or ny >= N or graph[nx][ny] == 0:
-            continue
+def dfs(x,y):
+  graph[x][y]=0 #방문처리
+  count=1 #개수 하나 세어줌
 
-        # 연결된 집 탐색
-        dfs(nx, ny)
+  for i in range(4):
+    nx=dx[i]+x
+    ny=dy[i]+y
 
-for i in range(N):
-    for j in range(N):
-        # 새로운 단지를 발견한 경우
-        if graph[i][j] == 1:
-            count = 0  # 각 단지의 집 개수를 세기 위해 초기화
-            dfs(i, j)
-            result.append(count)  # 단지 내 집의 수 저장
+    #범위를 벗어낫거나 벽일 경우 무시하기
+    if nx<0 or nx>=n or ny<0 or ny>=n or graph[nx][ny]==0:
+      continue
+    if graph[nx][ny]==1:
+      count+=dfs(nx,ny)
+  return count
 
-# 단지 수와 각 단지의 집 수를 오름차순으로 출력
-print(len(result))
-for count in sorted(result):
-    print(count)
+results=[]
+
+for i in range(n):
+  for j in range(n):
+    if graph[i][j]==1:
+      results.append(dfs(i,j))
+
+print(len(results))
+for result in sorted(results):
+  print(result)
