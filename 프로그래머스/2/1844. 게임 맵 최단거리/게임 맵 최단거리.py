@@ -5,12 +5,9 @@ def solution(maps):
     answer=bfs(0,0,maps)
     
     if answer==1:
-        if len(maps)==1 and len(maps[0])==1:
-            return answer
-        else:
+        if len(maps)!=1 and len(maps[0])!=1:
             return -1
-    
-    
+     
     return answer
 
 dx=[-1,1,0,0]
