@@ -1,30 +1,39 @@
 from collections import deque
+
 def solution(maps):
-    dx=[-1,1,0,0]
-    dy=[0,0,-1,1]
+    #방향
+    answer=bfs(0,0,maps)
     
-    def bfs(x,y):
-        queue=deque([(x,y)])
-        maps[x][y]=1
+    if answer==1:
+        if len(maps)==1 and len(maps[0])==1:
+            return answer
+        else:
+            return -1
+    
+    
+    return answer
+
+dx=[-1,1,0,0]
+dy=[0,0,-1,1]
+
+def bfs(y,x,maps):
+    
+    queue=deque([(y,x)])
+    
+    while queue:
+        y,x=queue.popleft()
         
-        while queue:
-            x,y=queue.popleft()
+        for i in range(4):
+            nx=dx[i]+x
+            ny=dy[i]+y
             
-            for i in range(4):
-                nx=dx[i]+x
-                ny=dy[i]+y
-                
-                if nx<0 or nx>=len(maps) or ny<0 or ny>=len(maps[0]) or maps[nx][ny]==0:
-                    continue
-                if maps[nx][ny]==1:
-                    #상하좌우 업데이트
-                    maps[nx][ny]=maps[x][y]+1
-                    queue.append((nx,ny))
-        return maps[len(maps)-1][len(maps[0])-1]
+            #먼저 범위 안에 있는지 체크
+            if 0<=nx<len(maps[0]) and 0<=ny<len(maps):
+                #방문한적이 있는지 체크
+                if maps[ny][nx]==1:
+                    maps[ny][nx]=maps[y][x]+1
+                    queue.append((ny,nx))
+                    
+    return maps[len(maps)-1][len(maps[0])-1]
     
-    #시작점에서 실행
-    answer=bfs(0,0)
-    if answer>1:
-        return answer
-    else:
-        return -1
+    
