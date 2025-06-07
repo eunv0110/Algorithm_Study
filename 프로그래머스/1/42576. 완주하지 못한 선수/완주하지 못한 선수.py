@@ -1,9 +1,15 @@
 def solution(participant, completion):
-    participant.sort()
-    completion.sort()
     
-    for i in range(len(participant)-1):
-        if participant[i]!=completion[i]:
-            return participant[i]
-        
-    return participant[-1]
+    hash_dict={}
+    sumHash=0
+    
+    for i in participant:
+        hash_dict[hash(i)]=i
+        sumHash+=hash(i)
+    
+    for j in completion:
+        sumHash-=hash(j)
+    
+    return hash_dict[sumHash]
+
+
