@@ -1,6 +1,6 @@
-def solution(pokemons):
-    
-    pokemons_list=list(set(pokemons))
-    if len(pokemons_list)>len(pokemons)/2:
-        return len(pokemons)/2
-    return len(pokemons_list)
+def solution(nums):
+    nums_set=list(set(nums))
+    if len(nums_set)>=(len(nums))/2:
+        return (len(nums))/2
+    else:
+        return len(nums_set)
