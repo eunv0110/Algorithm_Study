@@ -1,42 +1,49 @@
-import sys
-sys.setrecursionlimit(10**6)#재귀 한도 설정
+from collections import deque
+#테스트 케이스 T
+T=int(input())
+
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
 
-def dfs(x,y):
+
+def bfs(y,x):
+
+  queue=deque([(y,x)])
 
   graph[y][x]=0 #방문처리
 
-  for i in range(4):
-    nx=x+dx[i]
-    ny=y+dy[i]
+  while queue:
 
-    if nx<0 or nx>=m or ny<0 or ny>=n:
-      continue
-    if graph[ny][nx]==1:
-      graph[ny][nx]=0
-      dfs(nx,ny)
+    y,x=queue.popleft()
 
-T=int(input())
-results=[]
+    for i in range(4):
+      nx=x+dx[i]
+      ny=y+dy[i]
+
+      if 0<=nx<m and 0<=ny<n:
+        if graph[ny][nx]==1:
+
+          graph[ny][nx]=0 #방문처리
+
+          queue.append((ny,nx))
 
 for _ in range(T):
+  graph=[]
+  count=0
+  #가로길이 m,세로길이 n,배추개수 k
   m,n,k=map(int,input().split())
-  graph=[[0]*m for _ in range(n)]  
+
+  #그래프 생성
+  graph=[[0]*m for _ in range(n)]
+
   for _ in range(k):
     x,y=map(int,input().split())
-    graph[y][x]=1
+    graph[y][x]=1 #배추심기
   
-  count=0
-
-  for i in range(m):
-    for j in range(n):
-      if graph[j][i]==1:
-        dfs(i,j)
+  for y in range(n):
+    for x in range(m):
+      if graph[y][x]==1:
+        bfs(y,x)
         count+=1
-
-  results.append(count)
-
-for result in results:
-  print(result)
-    
+  
+  print(count)
