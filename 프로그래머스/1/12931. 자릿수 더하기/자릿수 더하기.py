@@ -1,10 +1,10 @@
 def solution(n):
-    answer=[]
     
-    while n>0:
-        remainder=n%10
-        n=n//10
-        answer.append(remainder)
+    nums=list(str(n))
+    answer=0
+    
+    for n in nums:
+        answer+=int(n)
+        
 
-    return sum(answer)
-                
+    return answer
