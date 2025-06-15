@@ -1,12 +1,14 @@
-
 def solution(brown, yellow):
-    cases=[]
     total=brown+yellow
-    for height in range(2,int(total**0.5)+1):
-        if total%height==0:
-            width=total//height
-            if width<height:
-                continue
-            #가운데 노랑색
-            if (width-2)*(height-2)==yellow:
-                return [width,height]
+    #약수의 리스트를 구하자
+    nums=[]
+    
+    for num in range(1,int(total**0.5)+1):
+        if total%num==0:
+            nums.append((total//num,num))
+    
+    for w,h in nums:
+        
+        if yellow==(w-2)*(h-2):
+            return [w,h]
+            
