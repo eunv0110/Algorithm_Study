@@ -1,37 +1,46 @@
+from collections import deque
+
 n=int(input())
 
 graph=[]
-
-for _ in range(n):
-    info=list(map(int,input().strip()))
-    graph.append(info)
-
-#방향 선언
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
 
-def dfs(x,y):
-  graph[x][y]=0 #방문처리
-  count=1 #개수 하나 세어줌
+for _ in range(n):
+  graph.append(list(map(int,input())))
 
-  for i in range(4):
-    nx=dx[i]+x
-    ny=dy[i]+y
+def bfs(y,x):
+  
+  queue=deque([(y,x)])
+  graph[y][x]=0 #방문처리
+  count=1
 
-    #범위를 벗어낫거나 벽일 경우 무시하기
-    if nx<0 or nx>=n or ny<0 or ny>=n or graph[nx][ny]==0:
-      continue
-    if graph[nx][ny]==1:
-      count+=dfs(nx,ny)
+  while queue:
+
+    y,x=queue.popleft()
+
+    for i in range(4):
+      nx=dx[i]+x
+      ny=dy[i]+y
+
+      if 0<=nx<n and 0<=ny<n and graph[ny][nx]==1:
+        queue.append((ny,nx))
+        graph[ny][nx]=0
+        count+=1
   return count
 
 results=[]
 
-for i in range(n):
-  for j in range(n):
-    if graph[i][j]==1:
-      results.append(dfs(i,j))
+for y in range(n):
+  for x in range(n):
+    if graph[y][x]==1:
+      results.append(bfs(y,x))
 
 print(len(results))
-for result in sorted(results):
-  print(result)
+results.sort()
+
+for result in results:
+  print(result,end='\n')
+
+
+  
