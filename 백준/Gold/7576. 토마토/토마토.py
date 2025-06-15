@@ -1,38 +1,49 @@
 from collections import deque
-import sys
 
-m, n = map(int, sys.stdin.readline().strip().split())  # m: 가로, n: 세로
-box = [list(map(int, sys.stdin.readline().strip().split())) for _ in range(n)]
+#m은 가로, n은 세로
+m,n=map(int,input().split())
 
-dx = [-1, 1, 0, 0]  # 좌우
-dy = [0, 0, -1, 1]  # 상하
+graph=[]
+
+for _ in range(n):
+  graph.append(list(map(int,input().split())))
+
+dx=[-1,1,0,0]
+dy=[0,0,-1,1]
 
 def bfs():
-    queue = deque()
+  
+  queue=deque()
 
-    for i in range(n):
-        for j in range(m):
-            if box[i][j] == 1:
-                queue.append((i, j))
+  for y in range(n):
+    for x in range(m):
+      if graph[y][x]==1:
+        queue.append((y,x))
 
-    while queue:
-        y, x = queue.popleft()
+  while queue:
 
-        for i in range(4):
-            ny = y + dy[i]
-            nx = x + dx[i]
+    y,x=queue.popleft()
 
-            if 0 <= nx < m and 0 <= ny < n and box[ny][nx] == 0:
-                box[ny][nx] = box[y][x] + 1
-                queue.append((ny, nx))
+    for i in range(4):
+      nx=x+dx[i]
+      ny=y+dy[i]
+
+      if 0<=nx<m and 0<=ny<n:
+        if graph[ny][nx]==0:
+          graph[ny][nx]=graph[y][x]+1
+          queue.append((ny,nx))
+
 
 bfs()
 
-result = 0
-for row in box:
-    if 0 in row:
-        print(-1)
-        break
-    result = max(result, max(row))
-else:
-    print(result - 1)
+answer=0
+
+for row in graph:
+  if 0 in row:
+    print(-1)
+    exit()
+  else:
+    answer=max(answer,max(row))
+
+
+print(answer-1)
