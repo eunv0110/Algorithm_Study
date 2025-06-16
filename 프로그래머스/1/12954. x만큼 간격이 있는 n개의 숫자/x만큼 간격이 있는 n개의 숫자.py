@@ -1,7 +1,3 @@
 def solution(x, n):
-    answer=[]
-    count=1
-    while n>=count:
-        answer.append(x*count)
-        count+=1
+    answer = [x*n for n in range(1,n+1)]
     return answer
