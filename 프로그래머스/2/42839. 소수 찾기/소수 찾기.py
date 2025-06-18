@@ -1,34 +1,35 @@
 from itertools import permutations
-
 def solution(numbers):
-    
-    answers=set()
+    nums=[]
+    numbers = list(map(int,list(numbers)))
+    count=0
     
     for i in range(1,len(numbers)+1):
-        perm=list(permutations(numbers,i))
-    
+        
+        perm=set(list(permutations(numbers,i)))
+        print(perm)
+        
         for num in perm:
-            answer=''.join(num)
-
-            if is_Prime(int(answer)):
-                answers.add(int(answer))
+            n=''.join(map(str,num))
+            nums.append((int(n)))
+    nums=list(set(nums))
     
-    return len(answers)
+    for num in nums:
+        if is_Prime(int(num)):
+            count+=1
+    return count
         
 
-def is_Prime(num):
-    
-    if num<2:
+def is_Prime(n):
+    if n<2:
         return False
-    
-    for i in range(2,int(num**0.5)+1):
-        if num%i==0:
+    for i in range(2,int(n**0.5)+1):
+        
+        if n%i==0:
             return False
-    
+        
+        
     return True
-    
-        
-        
-        
-        
-    
+
+
+            
