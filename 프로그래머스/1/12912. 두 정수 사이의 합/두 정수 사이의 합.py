@@ -1,11 +1,9 @@
 def solution(a, b):
-    sum=0
-    if b>a:
+    if a>b:
         a,b=b,a
+    answer = 0
+    for num in range(a,b+1):
+        answer+=num
     
-    while a>=b:
-        n=a-b
-        sum+=b
-        b+=1
-    return sum
-        
+    
+    return answer
