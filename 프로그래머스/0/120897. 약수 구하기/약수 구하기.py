@@ -1,12 +1,10 @@
 def solution(n):
-    answer = []
-    
-    for i in range(1,int(n**0.5)+1):
-        
-        if n%i==0:
-            answer.append(i)
-            answer.append(n//i)
-            
-    
+    answer = set()
 
-    return sorted(list(set(answer)))
+    for i in range(1,int(n**0.5)+1):
+        if n%i==0:
+            answer.add(i)
+            answer.add(n//i)
+    answer=list(answer)
+    answer.sort()
+    return answer
