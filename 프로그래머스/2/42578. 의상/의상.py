@@ -1,20 +1,14 @@
-
+from collections import defaultdict
 def solution(clothes):
     
-    clothes_dict={}
+    clothes_dict=defaultdict(list)
     
     for cloth,kind in clothes:
-        if kind not in clothes_dict:
-            clothes_dict[kind]=[cloth]
-        else:
-            clothes_dict[kind].append(cloth)
-        
-    result=1
-
+        clothes_dict[kind].append(cloth)
+    
+    answer=1
+    
     for kind in clothes_dict:
-        result*=(len(clothes_dict[kind])+1)
+        answer*=(len(clothes_dict[kind])+1)
     
-
-    
-    return result-1
-
+    return answer-1
