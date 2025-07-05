@@ -1,8 +1,14 @@
 def solution(t, p):
-    count=0
-    int_p=int(p)
+    nums=[]
     for i in range(len(t)-len(p)+1):
-        sub_str=t[i:i+len(p)]
-        if int_p>=int(sub_str):
-            count+=1
-    return count
+        result=t[i:i+len(p)]
+        nums.append(int(result))
+    
+    answer=0
+    print(nums)
+    
+    for num in nums:
+        if num <= int(p):
+            answer+=1
+    return answer
+        
