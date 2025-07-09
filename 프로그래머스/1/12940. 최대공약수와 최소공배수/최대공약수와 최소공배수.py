@@ -1,8 +1,10 @@
+import math
 def solution(n, m):
-    def gcd(a,b):
-        while b!=0:
-            a,b=b,a%b
-        return a
-    gcd_value=gcd(n,m)
-    lcm_value=n*m//gcd_value
-    return (gcd_value,lcm_value)
+    #최대공약수
+    num=math.gcd(n,m)
+    if num==1:
+        num2=n*m
+    else:
+        num2=n*m//num
+    
+    return [num,num2]
