@@ -1,8 +1,8 @@
 def solution(A,B):
-    A=sorted(A)
+    A=list(sorted(A))
     B=list(reversed(sorted(B)))
-    answer=[]
+    answer=0
     for i in range(len(A)):
-        answer.append(A[i]*B[i])
-        
-    return sum(answer)
+        answer+=A[i]*B[i]
+
+    return answer
