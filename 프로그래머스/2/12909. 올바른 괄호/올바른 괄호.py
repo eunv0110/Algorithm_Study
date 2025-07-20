@@ -1,15 +1,14 @@
 def solution(s):
-    answer=[]
-    
+    stack=[]
     for i in s:
-        if i =='(':
-            answer.append(i)
+        if i=='(':
+            stack.append('(')
         elif i==')':
-            if answer:
-                answer.pop()
+            if stack:
+                stack.pop()
             else:
                 return False
-    if answer:
+    if stack:
         return False
     else:
         return True
