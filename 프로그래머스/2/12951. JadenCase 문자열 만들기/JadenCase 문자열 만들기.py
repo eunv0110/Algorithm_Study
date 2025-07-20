@@ -6,8 +6,6 @@ def solution(s):
     for i in s:
         if i =='':
             answer.append('')
-        elif i[0] in num:
-            answer.append(i.lower())
         else:
             i=i[0].upper()+i[1:]
             answer.append(i)
