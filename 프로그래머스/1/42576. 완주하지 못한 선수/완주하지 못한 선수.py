@@ -1,14 +1,11 @@
 def solution(participant, completion):
-    people = {}
-    num=0
-    
+    p_dict={}
+    p_sum=0
     for p in participant:
-        num+=hash(p)
-        people[hash(p)]=p
+        p_dict[hash(p)]=p
+        p_sum+=hash(p)
     
     for c in completion:
-        num-=hash(c)
-    
-    return people[num]
-    
-
+        p_sum-=hash(c)
+    return p_dict[p_sum]
+        
