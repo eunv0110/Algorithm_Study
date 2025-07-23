@@ -1,22 +1,24 @@
+from collections import deque
+
 def solution(n, computers):
-    
     visited=[False]*n
-    count=0
+    answer = 0
     
     for i in range(n):
         if not visited[i]:
-            dfs(i,computers,visited)
-            count+=1
-    
+            bfs(i,visited,computers)
+            answer+=1
+    return answer
 
-    return count
-
-def dfs(node,computers,visited):
+def bfs(v,visited,computers):
     
-    visited[node]=True #방문처리
+    queue=deque([v])
+    visited[v]=True #방문처리
     
-
-    for i in range(len(computers)):
-        if computers[node][i]==1 and not visited[i]:
-            dfs(i,computers,visited)
-                
+    while queue:
+        x=queue.popleft()
+        
+        for i in range(len(computers[x])):
+            if computers[x][i]==1 and not visited[i]:
+                visited[i]=True
+                queue.append(i)
