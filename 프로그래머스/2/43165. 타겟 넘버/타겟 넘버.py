@@ -1,7 +1,7 @@
 from collections import deque
+
 def solution(numbers, target):
-    answer = 0
-    
+    answer = 0    
     queue=deque([(0,0)])
     
     while queue:
@@ -14,5 +14,4 @@ def solution(numbers, target):
         else:
             queue.append((current_num+numbers[idx],idx+1))
             queue.append((current_num-numbers[idx],idx+1))
-
     return answer
