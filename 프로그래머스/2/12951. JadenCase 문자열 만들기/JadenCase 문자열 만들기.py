@@ -1,13 +1,13 @@
 def solution(s):
-    num = '1234567890'
     
-    s=s.lower().split(' ')
+    s=list(s.lower().split(' '))
     answer=[]
-    for i in s:
-        if i =='':
+    for word in s:
+        if word=='':
             answer.append('')
         else:
-            i=i[0].upper()+i[1:]
-            answer.append(i)
-    
+            answer.append(word[0].upper()+word[1:])
+        
+        
+        
     return ' '.join(answer)
