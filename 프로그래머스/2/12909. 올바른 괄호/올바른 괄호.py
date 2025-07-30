@@ -1,5 +1,7 @@
 def solution(s):
+    
     stack=[]
+    
     for i in s:
         if i=='(':
             stack.append('(')
@@ -8,4 +10,7 @@ def solution(s):
                 stack.pop()
             else:
                 return False
-    return len(stack)==0
+    if stack:
+        return False
+    else:
+        return True
