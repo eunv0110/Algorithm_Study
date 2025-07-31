@@ -4,10 +4,7 @@ def solution(s):
     answer=[]
     for word in s:
         if word=='':
-            answer.append('')
+            answer.append(word)
         else:
             answer.append(word[0].upper()+word[1:])
-        
-        
-        
     return ' '.join(answer)
