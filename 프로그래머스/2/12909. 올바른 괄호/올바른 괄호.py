@@ -3,14 +3,14 @@ def solution(s):
     stack=[]
     
     for i in s:
-        if i=='(':
-            stack.append('(')
+        if i=="(":
+            stack.append(i)
         elif i==')':
-            if stack:
-                stack.pop()
-            else:
+            if not stack:
+                print(len(stack))
                 return False
+            else:
+                stack.pop()
     if stack:
         return False
-    else:
-        return True
+    return True
