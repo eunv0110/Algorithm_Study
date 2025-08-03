@@ -5,19 +5,14 @@ def solution(n, computers):
     answer=0
     for i in range(n):
         if not visited[i]:
-            bfs(i,computers,visited)
+            dfs(i,computers,visited)
             answer+=1
     return answer
 
-def bfs(node,computers,visited):
+def dfs(node,computers,visited):
     
-    queue=deque([node])
-    
-    while queue:
+    visited[node]=True
         
-        node=queue.popleft()
-        
-        for i in range(len(computers[0])):
-            if computers[node][i]==1 and not visited[i]:
-                queue.append(i)
-                visited[i]=True
+    for i in range(len(computers[0])):
+        if computers[node][i]==1 and not visited[i]:
+            dfs(i,computers,visited)
