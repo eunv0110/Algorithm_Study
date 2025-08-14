@@ -4,14 +4,13 @@ def solution(n, computers):
     visited=[False]*n
     answer = 0
 
-    for i in range(n):
-        if not visited[i]:
-            bfs(i,computers,visited)
+    for node in range(n):
+        if not visited[node]:
+            bfs(node,computers,visited)
             answer+=1
     return answer
 
-
-def bfs(node,computers,visited):
+def bfs(node, computers,visited):
     
     queue=deque([node])
     visited[node]=True
