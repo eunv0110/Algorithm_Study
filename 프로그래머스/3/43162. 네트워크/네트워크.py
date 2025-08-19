@@ -1,15 +1,27 @@
+from collections import deque
+
 def solution(n, computers):
     visited=[False]*n
-    answer = 0
-
+    answer=0
     for node in range(n):
         if not visited[node]:
-            dfs(node,computers,visited)
+            bfs(node,computers,visited)
             answer+=1
     return answer
 
-def dfs(node, computers,visited):
+def bfs(node,computers,visited):
+    queue=deque([node])
     visited[node]=True
-    for next_node in range(len(computers)):
-        if computers[node][next_node]==1 and not visited[next_node]:
-            dfs(next_node, computers, visited)  # 재귀 호출
+    
+    while queue:
+        
+        node=queue.popleft()
+        
+        for next_node in range(len(computers)):
+            if computers[node][next_node]==1 and not visited[next_node]:
+                visited[next_node]=True
+                queue.append(next_node)
+                
+    
+    
+    
