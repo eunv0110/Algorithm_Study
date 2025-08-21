@@ -1,26 +1,19 @@
 from collections import deque
-
 def solution(priorities, location):
-    queue=deque(enumerate(priorities))
-    print(queue)
-    order=0
+    queue=deque()
+    
+    for idx,priority in enumerate(priorities):
+        queue.append((idx,priority))
+        
+    answer=0
     
     while queue:
-        #맨 앞 문서에서 꺼내기
-        current=queue.popleft()
-        #더 높은 우선순위가 있는지 확인
-        high=False
-        
-        for _ ,priority in queue:
-            if current[1]<priority:
-                high=True
-                break
-        if high:
-            queue.append(current)
+        idx,priority=queue.popleft()
+        if queue and priority < max(p for i,p in queue):
+            queue.append((idx,priority))
         else:
-            order+=1
-            if current[0]==location:
-                return order
-    return -1
-                
-            
+            answer+=1
+            if idx==location:
+                return answer
+        
+    return answer
