@@ -4,6 +4,7 @@ T=int(input())
 for _ in range(T):
   stack=[]
   parentheses=list(input())
+  flag=True
 
   for p in parentheses:
     if p=='(' :
@@ -12,10 +13,9 @@ for _ in range(T):
       if stack:
         stack.pop()
       else:
-        print("NO")
+        flag=False
         break
+  if stack or not flag:
+    print("NO")
   else:
-    if stack:
-      print("NO")
-    else:
-      print("YES")
+    print("YES")
