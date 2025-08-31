@@ -1,8 +1,8 @@
-n=int(input())
-for _ in range(n):
-  answer=[]
-  sentence=input().split()
-  for i in range(len(sentence)):
-    answer.append(''.join(reversed(sentence[i])))  # ✅ 올바르게 문자열 뒤집기
+T=int(input())
 
+for _ in range(T):
+  s=input().split()
+  answer=[]
+  for i in s:
+    answer.append(i[::-1])
   print(' '.join(answer))
