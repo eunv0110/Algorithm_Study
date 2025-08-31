@@ -13,9 +13,11 @@ for _ in range(T):
       if stack:
         stack.pop()
       else:
+        print("NO")
         flag=False
         break
-  if stack or not flag:
-    print("NO")
   else:
-    print("YES")
+    if stack or not flag:
+      print("NO")
+    else:
+      print("YES")
