@@ -1,45 +1,41 @@
 from collections import deque
 
-#정점의 개수 n, 간선의 개수 m, 탐색 시작 번호 v
-
+#정점의 개수,간선의 개수, 시작노드
 n,m,v=map(int,input().split())
 
-graph=[[] for _ in range(n+1)]
-visited1=[False]*(n+1)
+graph=[[] for _ in range(n+1)] #노드가 1부터 시작하기 때문에
+visited=[False]*(n+1)
 visited2=[False]*(n+1)
 
 for _ in range(m):
-  n1,n2=map(int,input().split())
-  graph[n1].append(n2)
-  graph[n2].append(n1)
+  a,b=map(int,input().split())
+  graph[a].append(b)
+  graph[b].append(a)
 
-
-for i in range(1, n+1):
+#그래프 정렬
+for i in range(1,n+1):
   graph[i].sort()
 
 def dfs(v):
-
-  visited2[v]=True
-  print(v,end=" ")
-
+  visited[v]=True #방문처리
+  print(v,end=' ')
   for i in graph[v]:
-    if not visited2[i]:
+    if not visited[i]:
       dfs(i)
 
 def bfs(v):
 
   queue=deque([v])
-  visited1[v]=True
+  visited2[v]=True #방문처리
 
   while queue:
+    x=queue.popleft()
+    print(x,end=' ')
 
-    v=queue.popleft()
-    print(v,end=" ")
-
-    for i in graph[v]:
-      if not visited1[i]:
+    for i in graph[x]:
+      if not visited2[i]:
         queue.append(i)
-        visited1[i]=True
+        visited2[i]=True
 dfs(v)
-print("")
+print('')
 bfs(v)
