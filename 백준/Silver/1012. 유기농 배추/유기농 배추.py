@@ -1,23 +1,20 @@
-from collections import deque
+import sys
+sys.setrecursionlimit(10**6)
 
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
 
-def bfs(y,x):
-  queue=deque([(y,x)])
+def dfs(y,x):
   graph[y][x]=0 #방문처리
 
-  while queue:
-    y,x=queue.popleft()
+  for i in range(4):
+    nx=dx[i]+x
+    ny=dy[i]+y
 
-    for i in range(4):
-      nx=dx[i]+x
-      ny=dy[i]+y
+    if 0<=nx<m and 0<=ny<n:
+      if graph[ny][nx]==1:
+        dfs(ny,nx)
 
-      if 0<=nx<m and 0<=ny<n:
-        if graph[ny][nx]==1:
-          queue.append((ny,nx))
-          graph[ny][nx]=0 #방문처리
 
 T=int(input())
 
@@ -35,7 +32,7 @@ for _ in range(T):
   for y in range(n):
     for x in range(m):
       if graph[y][x]==1:
-        bfs(y,x)
+        dfs(y,x)
         count+=1
 
   print(count)
