@@ -1,26 +1,25 @@
 from collections import deque
 
-#테스트케이스 수
+#테스트할 개수
 T=int(input())
 
 for _ in range(T):
-  #n: 문서의 개수, m : 몇번째로 놓여있는지 나타내는 정수
+  #문서의 개수 n, 놓여져있는 정수 m
   n,m=map(int,input().split(' '))
+  #중요도
+  importances=list(map(int,input().split(' ')))
+  sorted_importances=deque(sorted(importances,reverse=True))
+  documents=deque()
+  for idx,importance in enumerate(importances):
+    documents.append((idx,importance))
 
-  #문서 중요도 입력받기
-  importance=list(map(int,list(input().split(' '))))
-  sorted_importance=list(sorted(importance,reverse=True))
-
-  queue=deque()
-  for idx,document in enumerate(importance):
-    queue.append((idx,document))
   count=0
 
-  while queue:
-    idx,importance=queue.popleft()
+  while documents:
+    idx,importance=documents.popleft()
 
-    if importance==sorted_importance[0]:
-      sorted_importance.pop(0)
+    if importance>=sorted_importances[0]:
+      sorted_importances.popleft()
       count+=1
 
       if idx==m:
@@ -28,5 +27,4 @@ for _ in range(T):
         break
 
     else:
-      queue.append((idx,importance))
-
+      documents.append((idx,importance))    
