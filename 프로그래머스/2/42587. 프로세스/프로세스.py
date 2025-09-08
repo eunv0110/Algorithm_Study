@@ -1,22 +1,18 @@
 from collections import deque
 def solution(priorities, location):
-    sorted_priorities=deque(sorted(priorities,reverse=True))
     queue=deque()
-    answer=0
-    
-    for idx,p in enumerate(priorities):
-        queue.append((idx,p))
-        
+    sorted_priorities = deque(sorted(priorities,reverse=True))
+    count=0
+    for idx,priority in enumerate(priorities):
+        queue.append((idx,priority))
+    print(queue)
     while queue:
-        idx,p=queue.popleft()
+        idx,importance=queue.popleft()
         
-        if p>=sorted_priorities[0]:
-            answer+=1
+        if importance>=sorted_priorities[0]:
+            count+=1
             sorted_priorities.popleft()
             if idx==location:
-                break
+                return count
         else:
-            queue.append((idx,p))
-                
-    return answer          
-            
+            queue.append((idx,importance))
