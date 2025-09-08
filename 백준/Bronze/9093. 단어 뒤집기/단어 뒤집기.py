@@ -1,7 +1,6 @@
 T=int(input())
-
 for _ in range(T):
-  s=input().split()
+  s=input().split(' ')
   answer=[]
   for i in s:
     answer.append(i[::-1])
