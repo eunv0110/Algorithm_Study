@@ -1,19 +1,27 @@
-from itertools import permutations
+import sys
+input=sys.stdin.readline
 
-def main():
-    # 입력을 받습니다.
-    N, M = map(int, input().split())
-    numbers = list(map(int, input().split()))
+n,m=map(int,input().split(' '))
+nums=list(map(int,input().split(' ')))
+nums.sort()
 
-    # permutations 함수를 이용하여 길이가 M인 모든 순열을 구합니다.
-    all_permutations = permutations(numbers, M)
+visited=[False]*n
+results=[]
 
-    # 집합을 사용하여 중복을 제거하고, 리스트로 변환하여 정렬합니다.
-    unique_permutations = sorted(set(all_permutations))
+def recur(depth):
+  if depth==m:
+    print(' '.join(map(str,results)))
+    return
 
-    # 각 순열을 출력합니다.
-    for perm in unique_permutations:
-        print(" ".join(map(str, perm)))
+  used=set()
 
-if __name__ == "__main__":
-    main()
+  for i in range(n):
+    if not visited[i] and nums[i] not in used:
+      visited[i]=True #방문처리
+      results.append(nums[i])
+      used.add(nums[i]) #이번 depth에서 중복 방지
+      recur(depth+1)
+      visited[i]=False
+      results.pop()
+
+recur(0)
