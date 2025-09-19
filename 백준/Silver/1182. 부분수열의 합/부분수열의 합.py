@@ -2,16 +2,18 @@ n,s=map(int,input().split(' '))
 nums=list(map(int,input().split(' ')))
 results=[]
 count=0
-def recur(start):
+def recur(idx,current_sum):
   global count
-  if results and sum(results)==s:
-    count+=1
+  if idx==n:
+    if current_sum==s:
+      count+=1
+    return
 
-  for i in range(start,n):
-    results.append(nums[i])
-    recur(i+1)
-    results.pop()
+  recur(idx+1,current_sum)
+  recur(idx+1,current_sum+nums[idx])
 
-recur(0)
-
-print(count)
+recur(0,0)
+if s==0:
+  print(count-1)
+else:
+  print(count)
