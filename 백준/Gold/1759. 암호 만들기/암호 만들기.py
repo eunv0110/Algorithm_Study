@@ -1,27 +1,34 @@
 l,c=map(int,input().split(' '))
-words=list(input().split(' '))
-words.sort()
-result=[]
+letters=list(input().split(' '))
+letters.sort()
+visited=[False]*c
+results=[]
 
 def is_valid(password):
-  vowels=list('aeiou')
+  vowel=set('aeiou')
   v_count=0
-  for ch in password:
-    if ch in vowels:
+  m_count=0
+  for p in password:
+    if p in vowel:
       v_count+=1
-  c_count=len(password)-v_count
-  return v_count>=1 and c_count>=2
+    else:
+      m_count+=1
+  if v_count>=1 and m_count>=2:
+    return True
+  else:
+    return False
 
-
-def recur(start,depth):
-  if depth==l:
-    if is_valid(result):
-      print(''.join(result))
-    return 
+def recur(start):
+  length=len(results)
+  if length==l:
+    if is_valid(results):
+      print(''.join(results))
+    return
   
   for i in range(start,c):
-    result.append(words[i])
-    recur(i+1,depth+1)
-    result.pop()
+    results.append(letters[i])
+    recur(i+1)
+    results.pop()
+recur(0)
 
-recur(0,0)
+
