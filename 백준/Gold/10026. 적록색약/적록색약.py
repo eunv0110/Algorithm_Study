@@ -1,59 +1,56 @@
 from collections import deque
 
-N = int(input())
-picture = []
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+n=int(input())
+graph=[]
+visited=[[False]*n for _ in range(n)]
+visited2=[[False]*n for _ in range(n)]
 
-for _ in range(N):
-    color = list(input())
-    picture.append(color)
+for _ in range(n):
+  graph.append(list(input()))
 
-visited = [[False] * N for _ in range(N)]
-visited2 = [[False] * N for _ in range(N)]
+graph2=[row[:] for row in graph]
 
-def bfs(x, y, visited, grid):
-    queue = deque()
-    queue.append((x, y))
-    color = grid[x][y]
-    visited[x][y] = True
+for y in range(n):
+  for x in range(n):
+    if graph2[y][x]=='G':
+      graph2[y][x]='R'
 
-    while queue:
-        x, y = queue.popleft()
+dx=[-1,1,0,0]
+dy=[0,0,-1,1]
 
-        for i in range(4):
-            nx = dx[i] + x
-            ny = dy[i] + y
+def bfs(y,x,color,graph,visited):
 
-            # 범위를 벗어났거나 방문했을 경우 무시
-            if nx < 0 or nx >= N or ny < 0 or ny >= N or visited[nx][ny]:
-                continue
-            if grid[nx][ny] == color:
-                visited[nx][ny] = True
-                queue.append((nx, ny))
+  queue=deque([(y,x)])
+  visited[y][x]=True #방문처리
 
-# 적록색맹용 그림 생성 (깊은 복사)
-picture2 = [row[:] for row in picture]
-for i in range(N):
-    for j in range(N):
-        if picture2[i][j] == 'G':
-            picture2[i][j] = 'R'
+  while queue:
 
-count = 0
-count2 = 0
+    y,x=queue.popleft()
 
-# 일반 그림 탐색
-for i in range(N):
-    for j in range(N):
-        if not visited[i][j]:
-            bfs(i, j, visited, picture)
-            count += 1
+    for i in range(4):
+      nx=dx[i]+x
+      ny=dy[i]+y
 
-# 색맹 그림 탐색
-for i in range(N):
-    for j in range(N):
-        if not visited2[i][j]:
-            bfs(i, j, visited2, picture2)
-            count2 += 1
+      if 0<=nx<n and 0<=ny<n and not visited[ny][nx]:
+        if graph[ny][nx]==color:
+          queue.append((ny,nx))
+          visited[ny][nx]=True
 
-print(count, count2)
+count=0
+c_count=0
+
+for y in range(n):
+  for x in range(n):
+    if not visited[y][x]:
+      bfs(y,x,graph[y][x],graph,visited)
+      count+=1
+
+
+for y in range(n):
+  for x in range(n):
+    if not visited2[y][x]:
+      bfs(y,x,graph2[y][x],graph2,visited2)
+      c_count+=1
+print(count,c_count)
+
+
