@@ -1,36 +1,30 @@
+from collections import deque
+
 #컴퓨터의 수
 n=int(input())
+graph=[[] for _ in range(n+1)]
+visited=[False]*n
 
 #컴퓨터 쌍의 수
 m=int(input())
 
-#그래프
-graph=[[] for _ in range(n+1)]
-#방문노드
-visited=[False]*(n+1)
-
-#간선의 정보
 for _ in range(m):
-  u,v=map(int,input().split())
-  graph[u].append(v)
-  graph[v].append(u)
+  a,b=map(int,input().split(' '))
+  graph[a-1].append(b-1)
+  graph[b-1].append(a-1)
 
-#dfs로 풀거야
-def dfs(v,group):
-  visited[v]=True
-  group.append(v)
-  for i in graph[v]:
-    if not visited[i]:
-      dfs(i,group)
+def bfs(n):
+  visited[n]=True
+  queue=deque([n])
+  count=0
+  while queue:
+    n=queue.popleft()
 
-groups=[]
-for i in range(1,n+1):
-  if not visited[i]:
-    group=[]
-    dfs(i,group)
-    groups.append(group)
+    for nx in graph[n]:
+      if not visited[nx]:
+        queue.append(nx)
+        visited[nx]=True
+        count+=1
+  return count
 
-for group in groups:
-  if 1 in group:
-    group.remove(1)
-    print(len(group))
+print(bfs(0))
