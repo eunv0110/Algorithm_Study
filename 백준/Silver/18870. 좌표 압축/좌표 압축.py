@@ -1,16 +1,11 @@
 from bisect import bisect_left
-import sys
-
-input=sys.stdin.readline
 
 n=int(input())
 array=list(map(int,input().split(' ')))
 
 sorted_array=list(sorted(set(array)))
-answer=[]
 
-for a in array:
-  left_index=bisect_left(sorted_array,a)
-  answer.append(left_index)
+answer=[bisect_left(sorted_array,a) for a in array]
 
 print(' '.join(map(str,answer)))
+
