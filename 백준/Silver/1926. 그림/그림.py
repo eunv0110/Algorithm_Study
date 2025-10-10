@@ -1,43 +1,43 @@
 from collections import deque
 
+n,m=map(int,input().split(' '))
+graph=[]
+results=[]
+
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
 
-#상자의 크기 입력받기
-n,m=map(int,input().split())
-graph=[]
 for _ in range(n):
-  graph.append(list(map(int,input().split())))
-
+  graph.append(list(map(int,input().split(' '))))
 
 def bfs(y,x):
-  count=1
   queue=deque([(y,x)])
+  count=1
   graph[y][x]=0
 
   while queue:
     y,x=queue.popleft()
 
     for i in range(4):
-      nx=x+dx[i]
-      ny=y+dy[i]
+      nx=dx[i]+x
+      ny=dy[i]+y
 
-      if 0<=nx<m and 0<=ny<n and graph[ny][nx]==1:
-        graph[ny][nx]=0 #방문처리
-        queue.append((ny,nx))
-        count+=1
+      if 0<=nx<m and 0<=ny<n:
+        if graph[ny][nx]==1:
+          graph[ny][nx]=0 #방문처리
+          queue.append((ny,nx))
+          count+=1
+
   return count
 
-results=[]
+for y in range(n):
+  for x in range(m):
+    if graph[y][x]==1:
+      results.append(bfs(y,x))
 
-for i in range(n):
-  for j in range(m):
-    if graph[i][j]==1:
-      results.append(bfs(i,j))
-
-print(len(results))
 if len(results)==0:
   print(0)
+  print(0)
 else:
+  print(len(results))
   print(max(results))
-     
