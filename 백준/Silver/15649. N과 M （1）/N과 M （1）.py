@@ -1,9 +1,9 @@
-n,k=map(int,input().split(' '))
+n,m=map(int,input().split(' '))
 visited=[False]*(n+1)
 results=[]
 
 def recur(depth):
-  if depth==k:
+  if depth==m:
     print(' '.join(map(str,results)))
     return
   
