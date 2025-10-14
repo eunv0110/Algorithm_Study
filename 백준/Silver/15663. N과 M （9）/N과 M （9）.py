@@ -1,21 +1,22 @@
 n,m=map(int,input().split(' '))
-nums=list(map(int,input().split(' ')))
-nums.sort()
+nums=list(sorted(map(int,input().split(' '))))
 visited=[False]*n
-results=[]
+result=[]
 
-def recur(num):
-  if num==m:
-    print(' '.join(map(str,results)))
+def recur(depth):
+  if depth==m:
+    print(' '.join(map(str,result)))
     return
+
   used=set()
+
   for i in range(n):
-    if not visited[i] and nums[i] not in used:
+    if not visited[i] and not nums[i] in used:
+      result.append(nums[i])
       visited[i]=True
-      results.append(nums[i])
       used.add(nums[i])
-      recur(num+1)
+      recur(depth+1)
       visited[i]=False
-      results.pop()
+      result.pop()
 
 recur(0)
