@@ -2,23 +2,27 @@ k,n=map(int,input().split(' '))
 nums=[]
 for _ in range(k):
   nums.append(int(input()))
+answer=0
 start=1
 end=max(nums)
-result=0
-while start<=end:
 
-  mid=(start+end)//2
+def find_answer(start,end,answer):
+  
+  if start>end:
+    return answer
+
   total=0
 
-  for num in nums:
-    total+=(num//mid)
-  
-  
-  if total>=n:
-    result=mid
-    start=mid+1
-  
-  else:
-    end=mid-1
+  mid=(start+end)//2
 
-print(result)
+  for num in nums:
+    total+=num//mid
+  
+  if n>total:
+    return find_answer(start,mid-1,answer)
+  else:
+    answer=mid
+    return find_answer(mid+1,end,answer)
+
+answer=find_answer(start,end,answer)
+print(answer)
