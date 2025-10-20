@@ -17,7 +17,7 @@ def bfs(node,computers,visited):
     while queue:
         n=queue.popleft()
         
-        for i in range(len(computers)):
-            if computers[n][i]==1 and not visited[i]:
-                queue.append(i)
-                visited[i]=True
+        for nx in range(len(computers)):
+            if computers[n][nx]==1 and not visited[nx]:
+                queue.append(nx)
+                visited[nx]=True
