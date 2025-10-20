@@ -1,20 +1,17 @@
 from bisect import bisect_right,bisect_left
-#상근이가 가지고 있는 카드의 개수
+#상근이가 가지고 있는 숫자 카드 개수
 n=int(input())
-cards=list(sorted(map(int,input().split(' '))))
+nums=list(sorted(map(int,input().split(' '))))
 m=int(input())
-nums=list(map(int,input().split(' ')))
-
-def count_by_cards(num):
-  right_index=bisect_right(cards,num)
-  left_index=bisect_left(cards,num)
-
-  return right_index-left_index
-
+cards=list(map(int,input().split(' ')))
 answer=[]
-for num in nums:
-  total=0
-  answer.append(count_by_cards(num))
+
+for card in cards:
+
+  right=bisect_right(nums,card)
+  left=bisect_left(nums,card)
+
+
+  answer.append(right-left)
 
 print(' '.join(map(str,answer)))
-  
