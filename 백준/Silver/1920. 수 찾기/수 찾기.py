@@ -1,23 +1,13 @@
-n=int(input())
-arrays=list(sorted(map(int,input().split(' '))))
-m=int(input())
-nums=list(map(int,input().split(' ')))
+from bisect import bisect_left
 
-def search(start,end,target):
-  if start>end:
-    return 0
-
-  mid=(start+end)//2
-
-  if arrays[mid]==target:
-    return 1
-  
-  elif arrays[mid]>target:
-    return search(start,mid-1,target)
-  
-  else:
-    return search(mid+1,end,target)
-  
+n = int(input())
+arr = sorted(list(map(int, input().split())))  # ✅ 정렬 필수
+m = int(input())
+nums = list(map(int, input().split()))
 
 for num in nums:
-  print(search(0,n-1,num))
+    idx = bisect_left(arr, num)
+    if idx < n and arr[idx] == num:
+        print(1)
+    else:
+        print(0)
