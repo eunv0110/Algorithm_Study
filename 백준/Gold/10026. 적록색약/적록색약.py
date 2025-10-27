@@ -1,24 +1,20 @@
 from collections import deque
+
 n=int(input())
-graph=[]
+graph=[list(input()) for _ in range(n)]
+blind_graph=[row[:] for row in graph]
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
-
-for _ in range(n):
-  graph.append(list(input()))
-
-color_graph=[row[:] for row in graph]
-
+#적록색약 그래프 만들기
 for y in range(n):
   for x in range(n):
-    if color_graph[y][x]=='G':
-      color_graph[y][x]='R'
-
+    if blind_graph[y][x]=='G':
+      blind_graph[y][x]='R'
 
 def bfs(y,x,color,graph,visited):
-
-  queue=deque([(y,x)])
+  
   visited[y][x]=True
+  queue=deque([(y,x)])
 
   while queue:
     y,x=queue.popleft()
@@ -28,14 +24,13 @@ def bfs(y,x,color,graph,visited):
       ny=y+dy[i]
 
       if 0<=nx<n and 0<=ny<n:
-        if graph[ny][nx]==color:
-          if not visited[ny][nx]:
-            queue.append((ny,nx))
-            visited[ny][nx]=True
+        if not visited[ny][nx] and graph[ny][nx]==color:
+          queue.append((ny,nx))
+          visited[ny][nx]=True
 
 def count_area(graph):
-  visited=[[False]*n for _ in range(n)]
   count=0
+  visited=[[False]*n for _ in range(n)]
   for y in range(n):
     for x in range(n):
       if not visited[y][x]:
@@ -43,4 +38,4 @@ def count_area(graph):
         count+=1
   return count
 
-print(count_area(graph),count_area(color_graph))
+print(count_area(graph), count_area(blind_graph))
