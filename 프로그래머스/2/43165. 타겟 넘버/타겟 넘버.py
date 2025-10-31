@@ -1,16 +1,16 @@
-from collections import deque
-
 def solution(numbers, target):
+    answer = 0
     
-    queue=deque([(0,0)])
-    count=0
-    
-    while queue:
-        current_num,idx=queue.popleft()
+    def recur(idx,total):
+        nonlocal answer
+        
         if idx==len(numbers):
-            if current_num==target:
-                count+=1
-        else:    
-            queue.append((current_num+numbers[idx],idx+1))
-            queue.append((current_num-numbers[idx],idx+1))
-    return count
+            if target==total:
+                answer+=1
+            return
+        recur(idx+1,total+numbers[idx])
+        recur(idx+1,total-numbers[idx])
+    
+    recur(0,0)
+    return answer
+
