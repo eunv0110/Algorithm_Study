@@ -1,27 +1,22 @@
 n,m=map(int,input().split(' '))
-nums=list(map(int,input().split(' ')))
+trees=list(map(int,input().split(' ')))
 start=0
-end=max(nums)
+end=max(trees)
 answer=0
-
-def find_height(start,end,answer):
-  total=0
+def recur(start,end,answer):
   if start>end:
     return answer
 
   mid=(start+end)//2
 
-  for num in nums:
-    total+=max(0,num-mid)
-
+  total=0
+  for tree in trees:
+    total+=max(0,tree-mid)
+  
   if total>=m:
-    answer=mid
-    return find_height(mid+1,end,answer)
-
+    return recur(mid+1,end,mid)
   else:
-    return find_height(start,mid-1,answer)
+    return recur(start,mid-1,answer)
+print(recur(start,end,answer))
 
-
-answer=find_height(start,end,answer)
-print(answer)
 
