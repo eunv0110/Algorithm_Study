@@ -1,20 +1,21 @@
-import sys
-
-N=int(input())
+n=int(input())
 
 def is_good(seq):
   length=len(seq)
-  for k in range(1,length//2+1):
-    if seq[-k:]==seq[-2*k:-k]:
+  for i in range(1,length//2+1):
+    if seq[-i:]==seq[-i*2:-i]:
       return False
   return True
-
 def recur(seq):
-  if N==len(seq):
+
+  if len(seq)==n:
     print(seq)
-    sys.exit(0)
-  for num in '123':
-    if is_good(seq+num):
-      recur(seq+num)
+    exit(0)
+  
+  for i in '123':
+    new_seq=seq+i
+
+    if is_good(new_seq):
+      recur(new_seq)
 
 recur('')
